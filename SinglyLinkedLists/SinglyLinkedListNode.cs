@@ -12,7 +12,7 @@ namespace SinglyLinkedLists
         public static List<SinglyLinkedListNode> allNodes = new List<SinglyLinkedListNode>();
 
         // READ: http://msdn.microsoft.com/en-us/library/aa287786(v=vs.71).aspx
-        private SinglyLinkedListNode next = null;
+        private SinglyLinkedListNode next;
         public SinglyLinkedListNode Next
         {
             get { return next; }
@@ -22,10 +22,7 @@ namespace SinglyLinkedLists
                 {
                     throw new System.ArgumentException();
                 }
-                else
-                {
-                    next = value;
-                }
+                next = value;
             }
         }
 
@@ -52,6 +49,11 @@ namespace SinglyLinkedLists
             this.value = value;
             // Used by the visualizer:
             allNodes.Add(this);
+        }
+
+        new public string ToString()
+        {
+            return value;
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
