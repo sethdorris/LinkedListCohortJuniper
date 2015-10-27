@@ -51,9 +51,9 @@ namespace SinglyLinkedLists
             allNodes.Add(this);
         }
 
-        new public string ToString()
+        public override string ToString()
         {
-            return value;
+            return value.ToString();
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx

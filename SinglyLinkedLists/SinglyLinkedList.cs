@@ -7,7 +7,7 @@ namespace SinglyLinkedLists
 {
     public class SinglyLinkedList
     {
-        string first;
+        private SinglyLinkedListNode firstNode;
 
         public SinglyLinkedList()
         {
@@ -39,9 +39,9 @@ namespace SinglyLinkedLists
 
         public void AddLast(string value)
         {
-            if (this.first == null)
+            if (firstNode == null)
             {
-                this.first = value;
+                firstNode = new SinglyLinkedListNode(value);
             }
         }
 
@@ -58,7 +58,14 @@ namespace SinglyLinkedLists
 
         public string First()
         {
-            return this.first;
+            if (firstNode == null)
+            {
+                return null;
+            }
+            else
+            {
+                return firstNode.Value;
+            }
         }
 
         public int IndexOf(string value)
