@@ -60,12 +60,17 @@ namespace SinglyLinkedLists
         {
             if (obj is SinglyLinkedListNode)
             {
-                SinglyLinkedListNode node = (SinglyLinkedListNode)obj;
+                SinglyLinkedListNode node = obj as SinglyLinkedListNode;
                 return Equals(node.Value, this.Value);
             } else
             {
                 return false;
             }            
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Value.GetHashCode();
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx

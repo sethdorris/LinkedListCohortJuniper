@@ -8,10 +8,12 @@ namespace SinglyLinkedLists
     public class SinglyLinkedList
     {
         private SinglyLinkedListNode firstNode;
+        private int size;
 
         public SinglyLinkedList()
         {
-            // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
+            this.firstNode = null;
+            this.size = 0;
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
@@ -21,10 +23,27 @@ namespace SinglyLinkedLists
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
-        public string this[int i]
+        public object this[int i]
         {
-            get { throw new NotImplementedException(); }
+            get { return this.IndexGet(i); }
             set { throw new NotImplementedException(); }
+        }
+
+        public object IndexGet(int i)
+        {
+            if (i < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            SinglyLinkedListNode node1 = this.firstNode;
+
+            for (int j = 0; j < this.size; j++)
+            {
+                node1 = node1.Next;
+            }
+
+            return node1.Value;
         }
 
         public void AddAfter(string existingValue, string value)
@@ -42,18 +61,48 @@ namespace SinglyLinkedLists
             if (firstNode == null)
             {
                 firstNode = new SinglyLinkedListNode(value);
+                this.size += 1;
+            } else
+            {
+                SinglyLinkedListNode current = this.firstNode;
+                while (current.Next != null)
+                {
+                    current = current.Next;
+                }
+                current.Next = new SinglyLinkedListNode(value);
+                this.size += 1;
             }
         }
 
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            throw new NotImplementedException();
+            return this.size;
         }
 
         public string ElementAt(int index)
         {
-            throw new NotImplementedException();
+            if (index < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (index > this.size)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (this.firstNode == null)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            {
+                SinglyLinkedListNode currentNode = firstNode;
+                for (int j = 0; j < index; j++)
+                {
+                    currentNode = currentNode.Next;
+                }
+                return currentNode.Value;  
+            }
         }
 
         public string First()
