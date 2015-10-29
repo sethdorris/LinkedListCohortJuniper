@@ -56,22 +56,42 @@ namespace SinglyLinkedLists
             return value.ToString();
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is SinglyLinkedListNode)
+            {
+                SinglyLinkedListNode node = (SinglyLinkedListNode)obj;
+                return Equals(node.Value, this.Value);
+            } else
+            {
+                return false;
+            }            
+        }
+
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
         public int CompareTo(Object obj)
         {
-            throw new NotImplementedException();
+            if (obj == null) 
+            {
+                return 1;
+            }
+            else
+            {
+                SinglyLinkedListNode node = obj as SinglyLinkedListNode;
+                if (node != null)
+                {
+                    return this.Value.CompareTo(node.Value);
+                }
+                else
+                {
+                    throw new ArgumentException("Argument not valid");
+                }
+            }
         }
 
         public bool IsLast()
         {
-            if (this.next == null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (next == null);
         }
     }
 }

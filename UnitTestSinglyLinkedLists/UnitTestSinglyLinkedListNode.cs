@@ -67,6 +67,13 @@ namespace UnitTestSinglyLinkedLists
         }
 
         [TestMethod]
+        public void NodeEqualityWithSelf()
+        {
+            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
+            Assert.AreEqual(node1, node1);
+        }
+
+        [TestMethod]
         public void NodeEqualityWithString()
         {
             SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
