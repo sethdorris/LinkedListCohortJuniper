@@ -51,11 +51,59 @@ namespace SinglyLinkedLists
 
         public void AddAfter(string existingValue, string value)
         {
+            if (firstNode == null)
+            {
+                throw new ArgumentException("Cannot be called on an empty list");
+            }
+            if (!NodeNameExists(existingValue))
+            {
+                throw new ArgumentException("Not in the list");
+            }
+
+            SinglyLinkedListNode currentNode = firstNode;
+            while (currentNode.Value != existingValue)
+            {
+                currentNode = currentNode.Next;
+            }
+
+            SinglyLinkedListNode newNode = new SinglyLinkedListNode(value);
+            size += 1;
+            newNode.Next = currentNode.Next;
+            currentNode.Next = newNode;
+        }
+
+        public bool NodeNameExists(string value)
+        {
+            bool exists = false;
+            if (firstNode != null)
+            {
+                SinglyLinkedListNode currentNode = firstNode;
+                for (int i = 0; i < size; i++)
+                {
+                    if (currentNode.Value == value)
+                    {
+                        exists = true;
+                    }
+                    currentNode = currentNode.Next;
+                }
+            }
+            return exists;
         }
 
         public void AddFirst(string value)
         {
-            throw new NotImplementedException();
+            if (this.firstNode == null)
+            {
+                this.firstNode = new SinglyLinkedListNode(value);
+                size += 1;
+            }
+            else
+            {
+                SinglyLinkedListNode newNextNode = firstNode;
+                firstNode = new SinglyLinkedListNode(value);
+                size += 1;
+                firstNode.Next = newNextNode;
+            }
         }
 
         public void AddLast(string value)
@@ -121,7 +169,7 @@ namespace SinglyLinkedLists
 
         public int IndexOf(string value)
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public bool IsSorted()

@@ -214,6 +214,26 @@ namespace UnitTestSinglyLinkedLists
         }
 
         [TestMethod]
+        public void nodeNameExists()
+        {
+            SinglyLinkedList list = new SinglyLinkedList();
+            list.AddLast("foo");
+            list.AddLast("bar");
+            bool expected = true;
+            Assert.AreEqual(expected, list.NodeNameExists("foo"));
+        }
+
+        [TestMethod]
+        public void nodeNameDoesNotExist()
+        {
+            SinglyLinkedList list = new SinglyLinkedList();
+            list.AddLast("foo");
+            list.AddLast("bar");
+            bool expected = false;
+            Assert.AreEqual(expected, list.NodeNameExists("fool"));
+        }
+
+        [TestMethod]
         public void AddAfter()
         {
             SinglyLinkedList list = new SinglyLinkedList();
