@@ -25,11 +25,11 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
         public object this[int i]
         {
-            get { return this.IndexGet(i); }
+            get { return this.GetNodeAtThisIndex(i); }
             set { throw new NotImplementedException(); }
         }
 
-        public object IndexGet(int i)
+        public object GetNodeAtThisIndex(int i)
         {
             if (i < 0)
             {
@@ -38,17 +38,19 @@ namespace SinglyLinkedLists
 
             SinglyLinkedListNode node1 = this.firstNode;
 
-            for (int j = 0; j < this.size; j++)
+            for (int j = 0; j <= this.size; j++)
             {
-                node1 = node1.Next;
+                if (node1.Next != null)
+                {
+                    node1 = node1.Next;
+                }     
             }
 
-            return node1.Value;
+            return node1;
         }
 
         public void AddAfter(string existingValue, string value)
         {
-            throw new NotImplementedException();
         }
 
         public void AddFirst(string value)
@@ -132,7 +134,14 @@ namespace SinglyLinkedLists
         // HINT 3: If you highlight code and right click, you can use the refactor menu to extract a method for you...
         public string Last()
         {
-            throw new NotImplementedException();
+            if (this.size == 0)
+            {
+                return null;
+            }
+            else
+            {
+              return ElementAt(size-1);
+            }
         }
 
         public void Remove(string value)
@@ -147,7 +156,51 @@ namespace SinglyLinkedLists
 
         public string[] ToArray()
         {
-            throw new NotImplementedException();
+            string[] listArray = new string[] { };
+            List<string> listofNodes = new List<string> { };
+            if (this.firstNode == null)
+            {
+                return listArray;
+            }
+            else
+            {
+                SinglyLinkedListNode currentNode = firstNode;
+                for (int i = 0; i < size; i++)
+                {
+                    listofNodes.Add(currentNode.Value);
+                    if (currentNode.Next != null)
+                    {
+                        currentNode = currentNode.Next;
+                    }
+                }
+                listArray = listofNodes.ToArray();
+                return listArray;
+            }
+        }
+
+        public override string ToString()
+        {
+            if (firstNode == null)
+            {
+                return "{ }";
+            }
+            if (size == 1)
+            {
+                return "{ \"" + firstNode.Value.ToString() + "\" " + "}";
+            }
+            else
+            {
+                string NodesInAString = "{ ";
+                SinglyLinkedListNode currentNode = firstNode;
+
+                while(currentNode.Next != null)
+                {
+                    NodesInAString += "\"" + currentNode.Value.ToString() + "\", ";
+                    currentNode = currentNode.Next;
+                }
+                NodesInAString += "\"" + currentNode.Value.ToString() + "\" }";
+                return NodesInAString;
+            }
         }
     }
 }

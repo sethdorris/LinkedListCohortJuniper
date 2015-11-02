@@ -105,6 +105,22 @@ namespace UnitTestSinglyLinkedLists
         }
 
         [TestMethod]
+        public void TestingMyLastMethodWithNoNodes()
+        {
+            SinglyLinkedList list = new SinglyLinkedList();
+            Assert.AreEqual(null, list.Last());
+        }
+
+        [TestMethod]
+        public void TestingMyLastMethodWithNodes()
+        {
+            SinglyLinkedList list = new SinglyLinkedList();
+            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
+            list.AddLast("foo");
+            Assert.AreEqual("foo", list.Last());
+        }
+
+        [TestMethod]
         public void LastOnLongerList()
         {
             SinglyLinkedList list = new SinglyLinkedList();
