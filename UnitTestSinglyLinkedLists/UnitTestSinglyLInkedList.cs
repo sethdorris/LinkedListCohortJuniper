@@ -86,7 +86,7 @@ namespace UnitTestSinglyLinkedLists
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddLast("grille");
-            list.ElementAt(-2);
+            Assert.AreEqual("bar", list.ElementAt(-2));
         }
         
         [TestMethod]
@@ -387,6 +387,23 @@ namespace UnitTestSinglyLinkedLists
         {
             SinglyLinkedList list = new SinglyLinkedList("foo", "bar", "grille");
             Assert.AreEqual(0, list.IndexOf("foo"));
+        }
+
+        [TestMethod]
+        public void testIndexOfNodeInFirst()
+        {
+            SinglyLinkedList list = new SinglyLinkedList();
+            list.AddFirst("node1");
+            Assert.AreEqual(0, list.IndexOf("node1"));
+        }
+
+        [TestMethod]
+        public void testIndexOfNodeForMultipleItems()
+        {
+            SinglyLinkedList list = new SinglyLinkedList();
+            list.AddFirst("node1");
+            list.AddLast("node2");
+            Assert.AreEqual(1, list.IndexOf("node2"));
         }
         
         [TestMethod]

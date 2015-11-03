@@ -19,34 +19,19 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
         public SinglyLinkedList(params object[] values)
         {
-
+            for (int i = 0; i < values.Length; i++)
+            {
+                AddLast(values[i].ToString());
+            }
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
-        public object this[int i]
+        public string this[int i]
         {
-            get { return this.GetNodeAtThisIndex(i); }
-            set { throw new NotImplementedException(); }
-        }
-
-        public object GetNodeAtThisIndex(int i)
-        {
-            if (i < 0)
-            {
-                throw new ArgumentOutOfRangeException();
+            get { return ElementAt(i); }
+            set {
+                NodeAt(i).Value = value;
             }
-
-            SinglyLinkedListNode node1 = this.firstNode;
-
-            for (int j = 0; j <= this.size; j++)
-            {
-                if (node1.Next != null)
-                {
-                    node1 = node1.Next;
-                }     
-            }
-
-            return node1;
         }
 
         public void AddAfter(string existingValue, string value)
@@ -92,9 +77,9 @@ namespace SinglyLinkedLists
 
         public void AddFirst(string value)
         {
-            if (this.firstNode == null)
+            if (firstNode == null)
             {
-                this.firstNode = new SinglyLinkedListNode(value);
+                firstNode = new SinglyLinkedListNode(value);
                 size += 1;
             }
             else
@@ -130,11 +115,18 @@ namespace SinglyLinkedLists
             return this.size;
         }
 
-        public string ElementAt(int index)
+        public SinglyLinkedListNode NodeAt(int index)
         {
             if (index < 0)
             {
-                throw new ArgumentOutOfRangeException();
+                SinglyLinkedListNode currentNode = firstNode;
+                int count = 1;
+                while (!currentNode.IsLast())
+                {
+                    count++;
+                    currentNode = currentNode.Next;
+                }
+                return NodeAt(count + index);
             }
             if (index > this.size)
             {
@@ -151,8 +143,13 @@ namespace SinglyLinkedLists
                 {
                     currentNode = currentNode.Next;
                 }
-                return currentNode.Value;  
+                return currentNode;
             }
+        }
+
+        public string ElementAt(int index)
+        {
+            return NodeAt(index).Value;
         }
 
         public string First()
@@ -169,7 +166,25 @@ namespace SinglyLinkedLists
 
         public int IndexOf(string value)
         {
-            return 0;
+            int index = 0;
+            if (firstNode == null)
+            {
+                index = -1;
+            }
+            if (NodeNameExists(value))
+            {
+                SinglyLinkedListNode currentNode = firstNode;
+                while (currentNode.Value != value)
+                {
+                    currentNode = currentNode.Next;
+                    index += 1;
+                }
+            }
+            if (!NodeNameExists(value))
+            {
+                index = -1;
+            }
+            return index;
         }
 
         public bool IsSorted()
@@ -234,7 +249,7 @@ namespace SinglyLinkedLists
             }
             if (size == 1)
             {
-                return "{ \"" + firstNode.Value.ToString() + "\" " + "}";
+                return "{ \"" + firstNode.Value + "\" " + "}";
             }
             else
             {
@@ -243,7 +258,7 @@ namespace SinglyLinkedLists
 
                 while(currentNode.Next != null)
                 {
-                    NodesInAString += "\"" + currentNode.Value.ToString() + "\", ";
+                    NodesInAString += "\"" + currentNode.Value + "\", ";
                     currentNode = currentNode.Next;
                 }
                 NodesInAString += "\"" + currentNode.Value.ToString() + "\" }";
