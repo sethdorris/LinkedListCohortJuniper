@@ -96,7 +96,7 @@ namespace SinglyLinkedLists
             if (firstNode == null)
             {
                 firstNode = new SinglyLinkedListNode(value);
-                this.size += 1;
+                size += 1;
             } else
             {
                 SinglyLinkedListNode current = this.firstNode;
@@ -105,14 +105,13 @@ namespace SinglyLinkedLists
                     current = current.Next;
                 }
                 current.Next = new SinglyLinkedListNode(value);
-                this.size += 1;
+                size += 1;
             }
         }
 
-        // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            return this.size;
+            return size;
         }
 
         public SinglyLinkedListNode NodeAt(int index)
@@ -179,11 +178,11 @@ namespace SinglyLinkedLists
                     currentNode = currentNode.Next;
                     index += 1;
                 }
-            }
-            if (!NodeNameExists(value))
+            } else
             {
                 index = -1;
             }
+            
             return index;
         }
 
@@ -209,7 +208,16 @@ namespace SinglyLinkedLists
 
         public void Remove(string value)
         {
-            throw new NotImplementedException();
+            int position = IndexOf(value);
+            if (position == 0)
+            {
+                firstNode = firstNode.Next;
+                size -= 1;
+            } else if (position >= 1)
+            {
+                NodeAt(position - 1).Next = NodeAt(position + 1);
+                size -= 1;
+            }
         }
 
         public void Sort()
