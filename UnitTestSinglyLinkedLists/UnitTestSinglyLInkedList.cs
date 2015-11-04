@@ -469,6 +469,14 @@ namespace UnitTestSinglyLinkedLists
             Assert.IsFalse(list.IsSorted());
         }
 
+
+        [TestMethod]
+        public void IsSortedOnUnsortedListLongerList()
+        {
+            SinglyLinkedList list = new SinglyLinkedList("abc", "efg", "foo", "bar");
+            Assert.IsFalse(list.IsSorted());
+        }
+
         [TestMethod]
         public void IsSortedOnSortedList()
         {
